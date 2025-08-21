@@ -6,7 +6,21 @@
 <title>勤怠情報変更｜LMS</title>
 </head>
 <body>
-
+ <!-- 追加: 勤怠未入力アラート用 -->
+    <span>
+        <!-- コメントアウト: 元のhidden入力と外部JS -->
+        <!--
+        <input type="hidden" id="hasNotEnterCount"
+        th:value="${notEnterCount > 0} ? 'true' : 'false'" />
+        <script src="@{/js/notEnterCountAlert.js}" type="text/javascript">
+        </script>
+        -->
+        <!-- 追加: 未入力がある場合のポップアップ -->
+        <script th:if="${hasNotEnterCount}">
+            alert('過去日の勤怠に未入力があります。');
+        </script>
+    </span>//ここまで追加
+    
 	<!-- 完了メッセージ -->
 	<th:block th:if="${not #strings.isEmpty(message)}" id="message">
 		<div class="alert alert-info alert-dismissible fade in" role="alert">
@@ -86,6 +100,12 @@
 			const minutes = ('0' + today.getMinutes()).slice(-2);
 			return hours + ':' + minutes;
 		}
+		
+		// 追加: テスト用メッセージ変数（未使用だが追加）
+        let message = false;
+        if (message) {
+            alert("過去の勤務に未入力があります");  //ここまで追加
+        }
 	</script>
 
 </body>
