@@ -150,11 +150,4 @@ public class AttendanceController {
 
 		return "attendance/detail";
 	}
-
-	//5行追加
-	//SimpleDateFormat datedate = new SimpleDateFormat();
-	//public Integer enterCount(Integer lmsUserId) {
-	//Date trainingDate = attendanceUtil.getTrainingDate();
-	//Integer Count = TStudentAttendanceMapper.notEnterCount(lmsUserId,Constants.DB_FLG_FALSE,trainingDate);
-	//return count;
 }

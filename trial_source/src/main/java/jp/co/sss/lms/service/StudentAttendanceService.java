@@ -335,13 +335,12 @@ public class StudentAttendanceService {
 		return messageUtil.getMessage(Constants.PROP_KEY_ATTENDANCE_UPDATE_NOTICE);
 	}
 
-	// 追加　StudentAttendanceService.java の getNotEnterCount メソッド内
-	//ここでSimpleDateFormatクラスでフォーマットパターンを設定する？
+	// 追加　本日の日付の取得　StudentAttendanceService.java の getNotEnterCount メソッド内
 	public Integer getNotEnterCount(Integer lmsUserId) {
 		try {
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 			Date trainingDate = df.parse(df.format(new Date()));
-			// 引数の順序をインターフェース定義に合わせる: lmsUserId, deleteFlg, trainingDate
+			// 勤怠情報の取得　引数の順序をインターフェース定義に合わせる: lmsUserId, deleteFlg, trainingDate
 			Integer notEnterCount = tStudentAttendanceMapper.notEnterCount(lmsUserId, Constants.DB_FLG_FALSE,
 					trainingDate);
 			return notEnterCount;
