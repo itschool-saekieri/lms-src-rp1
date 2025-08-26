@@ -8,13 +8,7 @@
 <body>
  <!-- 追加: 勤怠未入力アラート用 -->
     <span>
-        <!-- コメントアウト: 元のhidden入力と外部JS -->
-        <!--
-         <input type="hidden" id="hasNotEnterCount"
-        th:value="${notEnterCount > 0} ? 'true' : 'false'" />
-        <script src="@{/js/notEnterCountAlert.js}" type="text/javascript">
-        </script>
-        -->
+        
         <!-- 追加: 未入力がある場合のポップアップ -->
         <script th:if="${hasNotEnterCount}">
             alert('過去日の勤怠に未入力があります。');

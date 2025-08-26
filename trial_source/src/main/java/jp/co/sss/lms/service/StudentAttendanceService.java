@@ -334,19 +334,30 @@ public class StudentAttendanceService {
 		// 完了メッセージ
 		return messageUtil.getMessage(Constants.PROP_KEY_ATTENDANCE_UPDATE_NOTICE);
 	}
-
-	// 追加　本日の日付の取得　StudentAttendanceService.java の getNotEnterCount メソッド内
+	/**
+	 * ここから追加
+	 * 勤怠情報未入力件数取得
+	 * @param lmsUserId
+	 * @param deleteFlg
+	 * @param trainingDate
+	 * @return Integer
+	 */
+	//本日の日付の取得
 	public Integer getNotEnterCount(Integer lmsUserId) {
+		Integer notEnterCount = 0; // 初期値 0
+		
 		try {
+			//今日の日付を"yyyy-MM-dd"形式に変換
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 			Date trainingDate = df.parse(df.format(new Date()));
-			// 勤怠情報の取得　引数の順序をインターフェース定義に合わせる: lmsUserId, deleteFlg, trainingDate
-			Integer notEnterCount = tStudentAttendanceMapper.notEnterCount(lmsUserId, Constants.DB_FLG_FALSE,
+			
+			// 勤怠情報の未入力件数を取得
+			 notEnterCount = tStudentAttendanceMapper.notEnterCount(lmsUserId, Constants.DB_FLG_FALSE,
 					trainingDate);
-			return notEnterCount;
+			
 		} catch (ParseException e) {
-			e.printStackTrace();
-			return 0;
+			e.printStackTrace();  //エラー時は0のまま返す
+		}
+			return notEnterCount;//件数を返す
 		}
 	}
-}
