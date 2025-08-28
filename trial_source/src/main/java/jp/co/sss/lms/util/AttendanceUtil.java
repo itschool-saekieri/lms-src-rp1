@@ -1,6 +1,8 @@
 package jp.co.sss.lms.util;
 
 import java.text.ParseException;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.LinkedHashMap;
 
@@ -133,6 +135,43 @@ public class AttendanceUtil {
 	}
 
 	/**
+	 *  task26追加 時間取得
+	 * 
+	 * @return 時間
+	 */
+	public LinkedHashMap<Integer, String> setTrainingTimeHh() {
+		LinkedHashMap<Integer, String> map = new LinkedHashMap<>();
+		map.put(null, "");
+		for (int i = 0; i < 24; i++) {
+
+			if (i < 10) {
+				map.put(i, "0" + i);
+			} else {
+				map.put(i, String.valueOf(i));
+			}
+		}
+		return map;
+	}
+
+	/**
+		 * task26 分取得
+		 * 
+		 * @return 分
+		 */
+	public LinkedHashMap<Integer, String> setTrainingTimeMi() {
+		LinkedHashMap<Integer, String> map = new LinkedHashMap<>();
+		map.put(null, "");
+		for (int i = 0; i < 60; i++) {
+			if (i < 10) {
+				map.put(i, "0" + i);
+			} else {
+				map.put(i, String.valueOf(i));
+			}
+		}
+		return map;
+	} //ここまでtask26
+
+	/**
 	 * 研修日の判定
 	 * 
 	 * @param courseId
@@ -148,47 +187,53 @@ public class AttendanceUtil {
 	}
 
 	/**
-	 * task26追加
-	 * 時間のプルダウン用マップの生成
+	 * task26追加 開始時刻(hh;mm)を時(hh)に分割
+	 * 
 	 * @return 時
 	 */
-	public LinkedHashMap<Integer, String> getHourMap() {
-		LinkedHashMap<Integer, String> map = new LinkedHashMap<>();
-		map.put(null, null);
-		for (int i = 0; i < 24;i++) {
-			String time = i + "";
-			map.put(i, time);
-		}
-		return map;
+
+	public Integer getTrainingHour(String trainingStartTime) {
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+		LocalTime time = LocalTime.parse(trainingStartTime, formatter);
+		Integer integerHour = time.getHour();
+
+		return integerHour;
 	}
 
 	/**
-	 * task26追加
-	 * 分のプルダウン用マップの生成
+	 * task26 開始時刻(hh;mm)を分(mm)に分割
+	 * 
 	 * @return 分
 	 */
-	public LinkedHashMap<Integer, String> getMinuteMap() {
-		LinkedHashMap<Integer, String> map = new LinkedHashMap<>();
-		map.put(null, null);
-		for (int i = 0; i < 60;i++) {
-			String time = i + "";
-			map.put(i, time);
-		}
-		return map;
+
+	public Integer getTrainingMinute(String trainingStartTime) {
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+		LocalTime time = LocalTime.parse(trainingStartTime, formatter);
+		Integer integerMinute = time.getMinute();
+
+		return integerMinute;
+
+	}
+	// Integer → String 変換
+	public String getIntegerHour(Integer integerHour) {
+	    return integerHour == null ? "" : String.valueOf(integerHour);
 	}
 
-	/** task26追加：時間の（時）の取り出し*/
-	public Integer getHour(String time) {
-		Integer hour = Integer.parseInt(time);
-		Integer startHour = hour / 60;
-		return startHour;
+	public String getIntegerMinute(Integer integerMinute) {
+	    return integerMinute == null ? "" : String.valueOf(integerMinute);
 	}
-
-	/** task26追加：時間の（分）の取り出し*/
-	public Integer getMinute(String time) {
-		Integer minute = Integer.parseInt(time);
-		Integer startMinute = minute % 60;
-		return startMinute;
-	}
-
 }
+	/**public String getIntegerHour(Integer integerHour) {
+
+		String Hour = String.valueOf(integerHour);
+		return Hour;
+	}
+
+	public String getIntegerMinute(Integer integerMinute) {
+
+		String Minute = String.valueOf(integerMinute);
+		return Minute;
+	}*/
+
